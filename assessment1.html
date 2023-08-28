@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> 
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        h2{
+            place-content: center;
+        }
+        .reg-form {
+            width: 400px;
+            border: 1px solid black;
+            border-top: 5px solid orange;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .row {
+            display: flex;
+            padding: 5px 0px;
+        }
+
+        #mail , #pass , #cpass{
+            width: 300px;
+        }
+        select{
+            width: 150px;
+        }
+        .name{
+            display: flex;
+            margin-left: 10px;
+
+        }
+        .msg{
+            color: red;
+        }
+        .row1{
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .icon{
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+            border-left: 1px solid black;
+
+            padding: 0px 2px;
+        }
+        button{
+            color: white;
+            background-color: orange;
+            width: 300px;
+            border: 1px solid orange;
+        }
+    </style>
+</head>
+<body>
+    <div class="reg-form">
+        <form action="#">
+
+        <h2>Responsive Registration Form</h2>
+
+            <div class="row">
+                <div class="icon">
+                    <span class="fa-solid fa-envelope"></span>
+                </div>
+                <div class="col">
+                    <input type="text" placeholder="Email" id="mail" onblur="return blankCheck(this,'msg1')"
+                    onkeyup="return emailEx()">
+                </div>
+                <div class="col">
+                    <span class="msg" id="msg1"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="icon">
+                    <span class="fa-solid fa-lock"></span>
+                </div>
+                <div class="col">
+                    <input type="password" name="" placeholder="Password" id="pass" onblur="return blankCheck(this,'msg2')"
+                    placeholder="Password" maxlength="15" onkeyup="return passwordEx()">
+                </div>
+                <div class="col">
+                    <span class="msg" id="msg2"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="icon">
+                    <span class="fa-solid fa-lock"></span>
+                </div>
+                <div class="col">
+                    <input type="password" name="" placeholder="Re-enter Password" id="cpass" onblur="return blankCheck(this,'msg3')"
+                    onkeyup="return passwordCompare()">
+                </div>
+                <div class="col">
+                    <span class="msg" id="msg3"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="icon">
+                    <span class="fa-solid fa-user" ></span>
+                </div>
+                <div class="fname">
+                    <input type="text" placeholder="First Name" id="fname" onblur="return blankCheck(this, 'msg4')" style="width: 90px;">
+                </div>
+                <div class="col name">
+                    <div class="icon">
+                        <span class="fa-solid fa-user" ></span>
+                    </div>
+                    <div class="lname">
+                        <input type="text" placeholder="Last Name" id="lname" onblur="return blankCheck(this, 'msg4')" style="width: 90px;">
+                    </div>
+                </div>
+                <div class="col">
+                    <span class="msg" id="msg4"></span>
+                </div>
+            </div>
+            <div class="row row1">
+                <div class="col">
+                    <input type="radio" name="gen" id="male">
+                    <label for="">Male</label>
+                </div>
+                <div class="col">
+                    <input type="radio" name="gen" id="female">
+                    <label for="">Female</label>
+                </div>
+                <div class="col">
+                    <span class="msg" id="msg5"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                </div>
+                <div class="col">
+                    <select name="" id="city" onblur="return dropSelect(this, 'msg6') ">
+                        <option value="-1">Select a country</option>
+                        <option value="">INDIA</option>
+                        <option value="">U.S.A</option>
+                        <option value="">U.K.</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <span class="msg" id="msg6"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col chs">
+                    <input class="chck1" type="checkbox" name="" id="mk" onblur="return blankCheck(this, 'msg7')">
+                    <label for="">I agree with terms and conditions</label>
+                </div>
+            </div>
+            <div class="col">
+                <span class="msg" id="msg7"></span>
+            </div>
+            <div class="row">
+                <div class="col chs">
+                    <input class="chck2" type="checkbox" name="" id="mn" onblur="return blankCheck(this, 'msg8')">
+                    <label for="">I want to receive the newsletter</label>
+                </div>
+            </div>
+            <div class="col">
+                <span class="msg" id="msg8"></span>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <button type="submit" onclick="return formCheck()">Register</button>
+                </div>
+                <div class="col"></div>
+            </div>
+        </form>
+    </div>
+    <script>        
+    function formCheck() {
+            let mail = document.getElementById("email").value;
+            let pass = document.getElementById("pass").value;
+            let first = document.getElementById("fname").value;
+            let last = document.getElementById("lname").value;
+            let male = document.getElementById("male").checked;
+            let female = document.getElementById("female").checked;
+            let city = document.getElementById("city").value;
+            
+             if (mail == "" || mail == null) {
+                document.getElementById("msg1").innerText = "Enter Email id"
+                return false
+            } else if (pass == "" || pass == null) {
+                document.getElementById("msg2").innerText = "Enter Password"
+                return false
+            } else if (first == "" || first == null) {
+                document.getElementById("msg4").innerHTML = "Enter Firstname";
+                return false;
+            } else if (last == "" || last == null) {
+                document.getElementById("msg4").innerHTML = "Enter Lastname";
+                return false;
+            } else if (male == false && female == false) {
+                document.getElementById("msg5").innerText = "Select Gender"
+                return false
+            } else if (city == "-1") {
+                document.getElementById("msg6").innerText = "Select city"
+                return false
+            }
+            else {
+                document.getElementById("msg1").innerText = ""
+                document.getElementById("msg2").innerText = ""
+                document.getElementById("msg4").innerText = ""
+                document.getElementById("msg5").innerText = ""
+                document.getElementById("msg6").innerText = ""
+                return false
+            }
+        }
+
+        // blur event (with parameterized function )
+        function blankCheck(blnk, msg) {
+            if (blnk.value == "" || blnk.value == null) {
+                document.getElementById(msg).innerText = "Please, fill this field";
+                return false
+            }
+        }
+        function dropSelect(blnk, msg) {
+            if (blnk.value == "-1") {
+                document.getElementById(msg).innerText = "Select value"
+                return false
+            } else {
+                document.getElementById(msg).innerText = ""
+                return false
+            }
+        }
+        // keyboard event (with parameterized function)
+        function nameCheck(blnk, msg) {
+            let regEx = /^[a-zA-Z]*$/
+            if (!(regEx.test(blnk.value))) {
+                document.getElementById(msg).innerText = "Invalid value";
+                return false
+            } else if (blnk.value.length < 2) {
+                document.getElementById(msg).innerText = "Enter more then 2 characters";
+                return false
+            } else {
+                document.getElementById(msg).innerText = "";
+                return false
+            }
+        }
+        // email validation
+        function emailEx() {
+            let mail = document.getElementById("email").value;
+            let regEx = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{3})+$/
+            if (regEx.test(mail)) {
+                document.getElementById("msg8").innerText = "";
+                return false
+            } else {
+                document.getElementById("msg8").innerText = "Enter Proper Email";
+                return false
+            }
+        }
+
+        // password expression
+        function passwordEx() {
+            let pass = document.getElementById("pass").value;
+            let passex = /^(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[^a-zA-Z0-9])(?!.*\s).{8,15}$/
+            if (passex.test(pass)) {
+                document.getElementById("msg9").innerText = "";
+                return false
+            } else {
+                document.getElementById("msg9").innerText = "Enter Strong Password";
+                return false
+            }
+        }
+
+        // compare password
+        function passwordCompare() {
+            let pass = document.getElementById("pass").value;
+            let cpass = document.getElementById("cpass").value;
+            if (cpass != pass) {
+                document.getElementById("msg10").innerText = "Password and Confirm password does not match";
+                return false
+            } else {
+                
+                document.getElementById("msg10").innerText = "";
+                return false
+            }
+        }
+
+    </script>
+</body>
+</html>
